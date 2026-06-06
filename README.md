@@ -1,5 +1,8 @@
 ﻿# Laser-Tower
 
+在线访问：[https://aveqy.github.io/Laser-Tower/](https://aveqy.github.io/Laser-Tower/)
+
+
 肉鸽，战斗爽。  
 但这不是一句空话，这是这个游戏最真实的入场方式。
 
@@ -204,3 +207,4 @@
 你大概率会想：
 
 “再来一把，我这次肯定能撑更久。”
+
