@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -728,7 +728,7 @@
         <a class="credit-link" href="https://github.com/AveQY/Laser-Tower" target="_blank" rel="noreferrer">https://github.com/AveQY/Laser-Tower</a>
       </div>
       <div class="stats">
-        <div class="stat"><b id="core">20</b><span>核心耐久</span></div>
+        <div class="stat"><b id="core">3</b><span>核心耐久</span></div>
         <div class="stat"><b id="credits">120</b><span>晶体资源</span></div>
         <div class="stat"><b id="wave">1</b><span>当前波次</span></div>
         <div class="stat"><b id="score">0</b><span>折光分数</span></div>
@@ -983,13 +983,13 @@
     };
 
     const towers = {
-      laser: { name: "激光塔", key: "1", mark: "L", cost: 20, range: 150, damage: 34, rate: 0.16, color: "#f2d36b", maxDurability: 220, wear: 0.92, text: "持续灼烧单体", usage: "守长直线，稳定削厚血" },
-      prism: { name: "棱镜塔", key: "2", mark: "P", cost: 45, range: 130, damage: 20, rate: 0.34, color: "#62e5d3", maxDurability: 175, wear: 1.4, text: "折射到额外目标", usage: "放在拐角和密集路段清杂" },
-      pulse: { name: "脉冲塔", key: "3", mark: "S", cost: 60, range: 112, damage: 62, rate: 1.15, color: "#ff675d", maxDurability: 150, wear: 3.4, text: "范围爆发", usage: "留给高密度虫潮和精英群" }
+      laser: { name: "激光塔", key: "1", mark: "L", cost: 20, range: 150, damage: 34, rate: 0.16, color: "#f2d36b", maxDurability: 30, wear: 0.92, text: "持续灼烧单体", usage: "守长直线，稳定削厚血" },
+      prism: { name: "棱镜塔", key: "2", mark: "P", cost: 45, range: 130, damage: 20, rate: 0.34, color: "#62e5d3", maxDurability: 40, wear: 1.4, text: "折射到额外目标", usage: "放在拐角和密集路段清杂" },
+      pulse: { name: "脉冲塔", key: "3", mark: "S", cost: 60, range: 112, damage: 62, rate: 1.15, color: "#ff675d", maxDurability: 50, wear: 3.4, text: "范围爆发", usage: "留给高密度虫潮和精英群" }
     };
 
     const state = {
-      core: 20, credits: 120, wave: 1, score: 0, running: false, paused: false,
+      core: 3, credits: 120, wave: 1, score: 0, running: false, paused: false,
       speed: 1, selected: "laser", sell: false, towers: [], enemies: [], beams: [],
       spawnTimer: 0, toSpawn: 0, spawned: 0, waveLive: false, intermission: 0, cell: 42,
       damageMul: 1, prismLinks: 1, pulseRadius: 64, slow: 0, bounty: 0, eliteBounty: 0, waveBounty: 0,
@@ -1324,7 +1324,8 @@
       clearIllegalStatus();
       const candidates = state.towers.filter(t => !t.broken);
       if (candidates.length === 0) return 0;
-      const picks = [...candidates].sort(() => Math.random() - .5).slice(0, Math.min(3, candidates.length));
+      const illegalCount = source === "regular" ? 3 + Math.floor(state.wave / 10) : 3;
+      const picks = [...candidates].sort(() => Math.random() - .5).slice(0, Math.min(illegalCount, candidates.length));
       state.illegalCells = picks.map(t => ({ gx: t.gx, gy: t.gy }));
       for (const tower of picks) tower.illegal = true;
       const prefix = source === "event" ? "社会事件通告" : "监察通告";
@@ -1928,7 +1929,7 @@
 
     function resetGame() {
       Object.assign(state, {
-        core: 20, credits: 120, wave: 1, score: 0, running: true, paused: false,
+        core: 3, credits: 120, wave: 1, score: 0, running: true, paused: false,
         speed: 1, selected: "laser", sell: false, towers: [], enemies: [], beams: [],
         spawnTimer: 0, toSpawn: 0, spawned: 0, waveLive: false, intermission: 0,
         damageMul: 1, prismLinks: 1, pulseRadius: 64, slow: 0, bounty: 0, eliteBounty: 0, waveBounty: 0,
@@ -1994,3 +1995,4 @@
   </script>
 </body>
 </html>
+
