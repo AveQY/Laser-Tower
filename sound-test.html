@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>塔防音效测试</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      flex-direction: column;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 560px;
+      width: 90%;
+    }
+    .card {
+      background: #16213e;
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .15s;
+      user-select: none;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+    .card:active { transform: scale(0.96); }
+    .card .icon { font-size: 40px; margin-bottom: 10px; }
+    .card .name { color: #eee; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .card .desc { color: #8899aa; font-size: 13px; }
+    .card .hint { color: #667; font-size: 11px; margin-top: 8px; opacity: 0.6; }
+    
+    .card.laser { border-top: 3px solid #e94560; }
+    .card.laser:active { background: #2a1a30; }
+    .card.prism { border-top: 3px solid #00d4ff; }
+    .card.prism:active { background: #1a2a3a; }
+    .card.pulse { border-top: 3px solid #a855f7; }
+    .card.pulse:active { background: #201a35; }
+    .card.meme  { border-top: 3px solid #f59e0b; }
+    .card.meme:active  { background: #2a2515; }
+
+    .toggle-bar {
+      color: #8899aa; cursor: pointer; user-select: none;
+      margin-top: 24px; font-size: 15px;
+    }
+    .toggle-bar:hover { color: #ccc; }
+  </style>
+</head>
+<body>
+<div class="grid">
+  <div class="card laser" onclick="play('laser_tower.wav')">
+    <div class="icon">⚡</div>
+    <div class="name">激光塔</div>
+    <div class="desc">高频电流下降声</div>
+    <div class="hint">点击发射</div>
+  </div>
+
+  <div class="card prism" onclick="play('prism_tower.wav')">
+    <div class="icon">💎</div>
+    <div class="name">棱镜塔</div>
+    <div class="desc">水晶多频谐波</div>
+    <div class="hint">点击发射</div>
+  </div>
+
+  <div class="card pulse" onclick="play('pulse_tower.wav')">
+    <div class="icon">🌀</div>
+    <div class="name">脉冲塔</div>
+    <div class="desc">低频节奏脉冲</div>
+    <div class="hint">点击发射</div>
+  </div>
+
+  <div class="card meme" onclick="play('ni-gan-ma.mp3')">
+    <div class="icon">🦞</div>
+    <div class="name">你干嘛哎哟</div>
+    <div class="desc">蔡徐坤经典音效</div>
+    <div class="hint">点击播放</div>
+  </div>
+</div>
+
+<div class="toggle-bar" onclick="toggleMute()">🔊 音效：<span id="status">开</span></div>
+
+<script>
+let muted = false;
+
+function play(file) {
+  if (muted) return;
+  const audio = new Audio('mp3/' + file);
+  audio.play().catch(() => {});
+}
+
+function toggleMute() {
+  muted = !muted;
+  document.getElementById('status').textContent = muted ? '关' : '开';
+}
+</script>
+</body>
+</html>
